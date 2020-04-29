@@ -1,0 +1,73 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="container" id="top-container">
+    <div class="row justify-content-md-center" id="page-title">
+        <h1 class="col-lg-12">Milwaukee COVID-19 Resources & Information</h1>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-8">
+            <h3>Available Resources</h3>
+
+            <div id="forum-container">
+                <article>
+                    {% if post_title %} <h5>{{ post_title }}</h5>
+                        <h6> category: <a href=#> {{ post_type }} </a>/ posted on: <a href="#"> {{ post_time }} </a> / link: <a href= {{ link }} > {{ link }} </a> </h6>
+                        <p> {{ description }}</p>
+
+                    {% else %}<h5>Nothing in this category has been posted. Check back later.</h5> {% endif %}
+                </article>
+            </div>
+        </div>
+
+        <div class="col-sm-4" id="right-sidebar">
+            <input type="button" value="Submit Resource" class="navbar-toggler btn btn-dark btn-info mb-2" data-toggle="collapse" data-target="#navbarCollapse" id="sidebar-toggle" />
+            <div class="collapse navbar-collapse" id="navbarCollapse" >
+                <h3>Submit Resource</h3>
+                <form id="post-resource" action="/" method="POST">
+                    {{ form.csrf_token }}
+                    {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                        {% for message in messages %}
+                            <div class='alert alert-success' id='submit_flash'>
+                            <button type='button' class='close' data-dismiss='alert'>&times;</button>
+                            {{ message }}
+                            </div>
+                        {% endfor %}
+                        {% else %}
+                        {% endif %}
+                        {% endwith %}
+                    <div class="form-group">
+                        {{ wtf.form_field(form.post_title) }}
+                    </div>
+
+                    <div class="form-group">
+                        {{ wtf.form_field(form.email) }}
+                    </div>
+
+                    <div class="form-group">
+                        {{ wtf.form_field(form.post_type_submit) }}
+                    </div>
+
+                    <div class="form-group">
+                        {{ wtf.form_field(form.link) }}
+                    </div>
+
+                    <div class="form-group">
+                        {{ wtf.form_field(form.description) }}
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-default btn-dark mb-2" />
+                    </div>
+
+                </form>
+                </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

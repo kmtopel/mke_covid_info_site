@@ -1,0 +1,26 @@
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% import 'bootstrap/utils.html' as utils %}
+
+<!DOCTYPE html>
+    <html lang="en">
+        <head>
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+
+            <title>Milwaukee COVID-19 Resources and Information</title>
+            {% block styles %}
+            {{super()}}
+            <link type="text/css" rel="stylesheet" href="static/styles.css">
+            <link href="https://fonts.googleapis.com/css2?family=Alata&family=Work+Sans:wght@300&display=swap" rel="stylesheet">
+            <link href="https://fonts.googleapis.com/css2?family=Ultra&display=swap" rel="stylesheet">
+            {% endblock styles %}
+        </head>
+        <body>
+        {% block navbar %}
+            {{ nav.top.render() }}
+        {% endblock navbar %}
+        {% block content%}
+        {% endblock content%}
+
+        </body>
+    </html>
