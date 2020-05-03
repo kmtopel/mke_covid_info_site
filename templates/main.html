@@ -13,13 +13,16 @@
             <h3>Available Resources</h3>
 
             <div id="forum-container">
-                <article>
-                    {% if post_title %} <h5>{{ post_title }}</h5>
-                        <h6> category: <a href=#> {{ post_type }} </a>/ posted on: <a href="#"> {{ post_time }} </a> / link: <a href= {{ link }} > {{ link }} </a> </h6>
-                        <p> {{ description }}</p>
-
-                    {% else %}<h5>Nothing in this category has been posted. Check back later.</h5> {% endif %}
-                </article>
+                {% for post in data %}
+                    {% if post.active==1 %}
+                        <article>
+                                <h5>{{ post.post_title.Title() }}</h5>
+                                <h6> category: <a href= # > {{ post.post_type }} </a> / link: <a href= {{ post.link }} > {{ post.link }} </a> </h6>
+                                <p> {{ post.description }}</p>
+                                <h6></a> posted on: {{ post.timestamp.strftime('%m/%d/%Y at %I:%M %p') }} </h6>
+                        </article>
+                    {% endif %}
+                {% endfor %}
             </div>
         </div>
 

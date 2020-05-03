@@ -1,22 +1,40 @@
 #!/home/kmtopel/mysite/env/bin python3
-from flask import Flask, render_template, redirect, flash, url_for, request
+from flask import Flask, render_template, redirect, flash, url_for, request, session
 from flask_bootstrap import Bootstrap
 from flask_nav import Nav
+from flask_sqlalchemy import SQLAlchemy
 from flask_nav.elements import View, Navbar
 from flask_wtf.csrf import CSRFProtect
-from flask_sqlalchemy import SQLAlchemy
 from forms import SubmitForm, ContactAdmin
 from datetime import datetime as dt
 import os
 
 app = Flask(__name__)
+
+basedir = os.path.abspath(os.path.dirname(__file__))
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'data.sqlite')
+app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
+
 csrf = CSRFProtect(app)
 bootstrap = Bootstrap(app)
 nav = Nav(app)
+db = SQLAlchemy(app)
+
+class Posts(db.Model):
+    __tablename__ = "posts"
+    id = db.Column(db.Integer, primary_key=True)
+    timestamp = db.Column(db.DateTime,nullable=True)
+    post_title = db.Column(db.String(80),nullable=False)
+    email = db.Column(db.String(120),nullable=False)
+    link = db.Column(db.String(120))
+    post_type = db.Column(db.String(80),nullable=False)
+    description = db.Column(db.Text)
+    active = db.Column(db.Boolean, default=0)
+    sql_autoincrement=True
 
 topbar = Navbar('',
     View('Home', 'main'),
-    View('Contact', 'contact'),)
+    View('Contact', 'contact'))
 
 nav.register_element('top',topbar)
 
@@ -26,27 +44,21 @@ app.config['SECRET_KEY'] = key
 @app.route('/', methods=["GET","POST"])
 def main():
     form = SubmitForm(request.form)
-    post_title=None
-    email=None
-    post_type_submit=None
-    link=None
-    post_time=None
-    description=None
     if form.validate_on_submit():
         flash("Success! Thank you for submitting a resource. Your post is being reviewed.")
-        post_title = form.post_title.data
-        email = form.email.data
-        post_time = dt.today().strftime('%m/%d/%Y')
-        description = form.description.data
-        post_type_submit = form.post_type_submit.data
-        link = form.link.data
+        post = Posts(
+            post_title=form.post_title.data,
+            email=form.email.data,
+            description=form.description.data,
+            post_type=form.post_type_submit.data,
+            link = form.link.data,
+            timestamp=dt.utcnow()
+                )
+        db.session.add_all([post])
+        db.session.commit()
         return redirect(url_for('main'))
-    form.post_title.data = ''
-    form.email.data = ''
-    form.description.data=''
-    form.post_type_submit.data=''
-    form.link.data=''
-    return render_template('main.html',form=form, post_title=post_title, post_time=post_time, description=description, link=link, post_type=post_type_submit, email=email)
+    data=Posts.query.all()
+    return render_template('main.html',form=form,data=data)
 
 @app.route('/contact', methods=["GET","POST"])
 def contact():
