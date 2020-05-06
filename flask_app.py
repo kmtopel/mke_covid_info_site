@@ -1,11 +1,11 @@
 #!/home/kmtopel/mysite/env/bin python3
-from flask import Flask, render_template, redirect, flash, url_for, request, session
+from flask import Flask, render_template, redirect, flash, url_for, request
 from flask_bootstrap import Bootstrap
 from flask_nav import Nav
 from flask_sqlalchemy import SQLAlchemy
-from flask_nav.elements import View, Navbar
+# from flask_nav.elements import View, Navbar, RawTag
 from flask_wtf.csrf import CSRFProtect
-from forms import SubmitForm, ContactAdmin
+from forms import SubmitForm, ContactAdmin, FilterResults
 from datetime import datetime as dt
 import os
 
@@ -32,11 +32,15 @@ class Posts(db.Model):
     active = db.Column(db.Boolean, default=0)
     sql_autoincrement=True
 
-topbar = Navbar('',
-    View('Home', 'main'),
-    View('Contact', 'contact'))
+# toggle_tag = r'<input type="button" value="Submit Resource" class="navbar-toggler btn btn-dark btn-info mb-2" data-toggle="collapse" data-target="#navbarCollapse" id="sidebar-toggle" />'
 
-nav.register_element('top',topbar)
+
+# topbar = Navbar('',
+#             View('Home', 'main'),
+#             View('Contact', 'contact')
+#     )
+
+# nav.register_element('top',topbar)
 
 key = os.urandom(24)
 app.config['SECRET_KEY'] = key
@@ -44,6 +48,7 @@ app.config['SECRET_KEY'] = key
 @app.route('/', methods=["GET","POST"])
 def main():
     form = SubmitForm(request.form)
+    cat_filter = FilterResults()
     if form.validate_on_submit():
         flash("Success! Thank you for submitting a resource. Your post is being reviewed.")
         post = Posts(
@@ -57,12 +62,11 @@ def main():
         db.session.add_all([post])
         db.session.commit()
         return redirect(url_for('main'))
+
     data=Posts.query.all()
-    return render_template('main.html',form=form,data=data)
+    return render_template('main.html',form=form, data=data, cat_filter=cat_filter)
 
 @app.route('/contact', methods=["GET","POST"])
 def contact():
     form = ContactAdmin()
     return render_template('contact.html',form=form)
-
-nav.init_app(app)

@@ -16,11 +16,34 @@
             {% endblock styles %}
         </head>
         <body>
+
         {% block navbar %}
-            {{ nav.top.render() }}
+        <div id='top-nav-container' class='container'>
+            <div class='container-fluid'>
+                <nav class="navbar navbar-default navbar-fixed-top">
+                    <ul class="nav nav-pills">
+                        <li class='nav-item'>
+                            <a id='title-brand' class='navbar-brand' href='/'>
+                                Milwaukees Area COVID-19 Resource & Information
+                            </a>
+                        </li>
+
+                        <li class='nav-item'>
+                            <a class='nav-link' href={{url_for('contact')}}>Contact</a>
+                        </li>
+                        {% block nav_element %}
+                        {% endblock nav_element %}
+                    </ul>
+                </nav>
+            </div>
+        </div>
         {% endblock navbar %}
         {% block content%}
         {% endblock content%}
-
+        <div class="container">
+            <nav class="navbar footer navbar-fixed-bottom">
+                <p> Background photograph courtesy of April Heath. Check out her work <a href="https://www.instagram.com/april.deaunna.photography/?hl=en" target="#">here</a>.</p>
+            </nav>
+        </div>
         </body>
     </html>
