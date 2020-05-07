@@ -11,6 +11,17 @@
         font-family: 'Ultra', serif;
     }
 
+#filter-list
+    {
+        list-style-type: none;
+        display: inline;
+    }
+
+li
+    {
+        display: inline-block;
+    }
+
 body
     {
         background-image: urL('IMG_0401.jpg');
@@ -35,18 +46,6 @@ textarea
     {
         resize: none;
         height: 50px;
-    }
-
-#right-sidebar
-    {
-        display: inline-block;
-        margin-top: 10px;
-        padding-top: 0px;
-        padding-left: 10px;
-        padding-right: 10px;
-        padding-bottom: 10px;
-        background-color: #D4D4D4;
-        border-radius: 5px;
     }
 
 .submit_flash
