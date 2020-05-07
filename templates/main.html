@@ -1,86 +1,75 @@
 {% extends "layout.html" %}
+{% block nav_element %}
+    <li role='presentation' class='dropdown nav-item'>
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"> Submit Resource<span class="caret"></span></a>
+        <div class="dropdown-menu" id="navbarCollapse" >
+            <form class='nav-item' id="post-resource" action="/" method="POST">
+                {{ form.csrf_token }}
 
+                <div class="form-group nav-item">
+                    {{ wtf.form_field(form.post_title) }}
+                </div>
+
+                <div class="form-group nav-item">
+                    {{ wtf.form_field(form.email) }}
+                </div>
+
+                <div class="form-group nav-item">
+                    {{ wtf.form_field(form.post_type_submit) }}
+                </div>
+
+                <div class="form-group nav-item">
+                    {{ wtf.form_field(form.link) }}
+                </div>
+
+                <div class="form-group nav-item">
+                    {{ wtf.form_field(form.description) }}
+                </div>
+
+                <div class="form-group nav-item">
+                    <input type="submit" class="btn btn-default btn-dark mb-2" />
+                </div>
+                <div id='flash-msg-container' class='d-inline-block'>
+                    {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                    {% for message in messages %}
+                    <div class='alert alert-success' id='submit_flash'>
+                        <button type='button' class='close' data-dismiss='alert'>&times;</button>
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+                    {% else %}
+                    {% endif %}
+                    {% endwith %}
+                </div>
+            </form>
+        </div>
+    </li>
+{% endblock nav_element %}
 {% block content %}
 
-<div class="container" id="top-container">
-    <div class="row justify-content-md-center" id="page-title">
-        <h1 class="col-lg-12">Milwaukee COVID-19 Resources & Information</h1>
-    </div>
-</div>
-
 <div class="container">
-    <div class="row">
-        <div class="col-sm-8">
-            <h3>Available Resources</h3>
 
-            <div id="filter-results" class="input-group input-sm col-xs-2">
-                {{ wtf.form_field(cat_filter.post_type_filter) }}
-            </div>
+    <div class='row'>
 
-            <div id="forum-container">
-                {% for post in data %}
-                    {% if post.active==1 %}
-                        <article>
-                                <h5>{{ post.post_title }}</h5>
-                                <h6> category: <a href= # > {{ post.post_type }} </a> / link: <a href= {{ post.link }} target="#"> {{ post.link }} </a> </h6>
-                                <p> {{ post.description }}</p>
-                                <h6></a> posted on: {{ post.timestamp.strftime('%m/%d/%Y') }} </h6>
-                        </article>
-                    {% endif %}
-                {% endfor %}
-            </div>
-        </div>
-
-        <div class="col-sm-4" id="right-sidebar">
-
-            <div class="collapse navbar-collapse" id="navbarCollapse" >
-                <h3>Submit Resource</h3>
-                <form id="post-resource" action="/" method="POST">
-                    {{ form.csrf_token }}
-                    {% with messages = get_flashed_messages() %}
-                        {% if messages %}
-                        {% for message in messages %}
-                            <div class='alert alert-success' id='submit_flash'>
-                            <button type='button' class='close' data-dismiss='alert'>&times;</button>
-                            {{ message }}
-                            </div>
-                        {% endfor %}
-                        {% else %}
-                        {% endif %}
-                        {% endwith %}
-                    <div class="form-group">
-                        {{ wtf.form_field(form.post_title) }}
-                    </div>
-
-                    <div class="form-group">
-                        {{ wtf.form_field(form.email) }}
-                    </div>
-
-                    <div class="form-group">
-                        {{ wtf.form_field(form.post_type_submit) }}
-                    </div>
-
-                    <div class="form-group">
-                        {{ wtf.form_field(form.link) }}
-                    </div>
-
-                    <div class="form-group">
-                        {{ wtf.form_field(form.description) }}
-                    </div>
-
-                    <div class="form-group">
-                        <input type="submit" class="btn btn-default btn-dark mb-2" />
-                    </div>
-
-                </form>
-                </div>
+        <h3 class = 'd-inline-block'>Available Resources</h3>
+        <div id="filter-results" class="input-group input-sm col-md-3 d-inline-block">
+            {{ wtf.form_field(cat_filter.post_type_filter) }}
         </div>
     </div>
+    <div id="forum-container" class='row'>
+        {% for post in data %}
+            {% if post.active==1 %}
+                <article>
+                    <h5>{{ post.post_title }}</h5>
+                    <h6> category: <a href= # > {{ post.post_type }} </a> / link: <a href= {{ post.link }} target="#"> {{ post.link }} </a> </h6>
+                    <p> {{ post.description }}</p>
+                    <h6></a> posted on: {{ post.timestamp.strftime('%m/%d/%Y') }} </h6>
+                </article>
+            {% endif %}
+        {% endfor %}
+    </div>
+
 </div>
 
 {% endblock content %}
-{% block scripts %}
-<script>
-    document.getElementById('')
-</script>
-{% endblock scripts %}

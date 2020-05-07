@@ -32,16 +32,6 @@ class Posts(db.Model):
     active = db.Column(db.Boolean, default=0)
     sql_autoincrement=True
 
-# toggle_tag = r'<input type="button" value="Submit Resource" class="navbar-toggler btn btn-dark btn-info mb-2" data-toggle="collapse" data-target="#navbarCollapse" id="sidebar-toggle" />'
-
-
-# topbar = Navbar('',
-#             View('Home', 'main'),
-#             View('Contact', 'contact')
-#     )
-
-# nav.register_element('top',topbar)
-
 key = os.urandom(24)
 app.config['SECRET_KEY'] = key
 
@@ -62,6 +52,7 @@ def main():
         db.session.add_all([post])
         db.session.commit()
         return redirect(url_for('main'))
+
     data=Posts.query.all()
     return render_template('main.html',form=form, data=data, cat_filter=cat_filter)
 
