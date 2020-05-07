@@ -8,7 +8,7 @@ choice_sans_blank = [('Show All', 'Show All'),('Information','Information'),('Fi
 class SubmitForm(FlaskForm):
     email = StringField('Email',validators=[Email(),InputRequired()])
     post_title = StringField('Post Title', validators=[InputRequired()])
-    post_type_submit = SelectField('Type',choices=choice_list, validators=[Required()])
+    post_type_submit = SelectField('Type',choices=choice_list, validators=[Required(),InputRequired()])
     link = StringField('Link')
     description = TextAreaField('Description',validators=[InputRequired()])
     submit_btn = SubmitField('Submit')
