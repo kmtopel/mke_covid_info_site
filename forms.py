@@ -2,8 +2,8 @@ from wtforms.fields import TextAreaField, SelectField, SubmitField, StringField
 from wtforms.validators import InputRequired, Email
 from flask_wtf import FlaskForm
 
-choice_list = [(None, '--Please select an option--'),('Information','Information'),('Resource - Financial','Resource - Financial'),('Resource - Health Care','Resource - Health Care'),('Resource - Employment/Vocational','Resource - Employment/Vocational'),('Resource - Social Service','Resource - Social Service'),('Resource - Education','Resource - Education'),('Resource - Other','Resource - Other')]
-choice_sans_blank = [('Show All', 'Show All'),('Information','Information'),('Resource - Financial','Resource - Financial'),('Resource - Health Care','Resource - Health Care'),('Resource - Employment/Vocational','Resource - Employment/Vocational'),('Resource - Social Service','Resource - Social Service'),('Resource - Education','Resource - Education'),('Resource - Other','Resource - Other')]
+choice_list = [(None, '--Please select an option--'),('Information','Information'),('Financial','Financial'),('Food','Food'),('Health Care','Health Care'),('Employment/Vocational','Employment/Vocational'),('Social Service','Social Service'),('Education','Education'),('Other','Other')]
+choice_sans_blank = [('Show All', 'Show All'),('Information','Information'),('Financial','Financial'),('Food','Food'),('Health Care','Health Care'),('Employment/Vocational','Employment/Vocational'),('Social Service','Social Service'),('Education','Education'),('Other','Other')]
 
 class SubmitForm(FlaskForm):
     email = StringField('Email',validators=[Email(),InputRequired()])

@@ -1,10 +1,14 @@
 {% extends "layout.html" %}
 {% block content %}
 
-<div id="form-container" class='col-md'>
+<div id="form-container" class='col-md-4'>
     <h2>Contact Admin</h2>
         <form>
             {{ wtf.quick_form(form) }}
         </form>
+</div>
+
+<div class='col-md-4'>
+    <p> If you're a fan of this project and want to support me in this and further pursuits, feel free to do so <a href="https://www.buymeacoffee.com/kmtopel">here</a>.</p>
 </div>
 {% endblock content %}

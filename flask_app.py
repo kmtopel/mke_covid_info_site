@@ -52,7 +52,6 @@ def main():
         db.session.add_all([post])
         db.session.commit()
         return redirect(url_for('main'))
-
     data=Posts.query.all()
     return render_template('main.html',form=form, data=data, cat_filter=cat_filter)
 

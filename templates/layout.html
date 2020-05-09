@@ -29,7 +29,7 @@
                         </li>
 
                         <li class='nav-item'>
-                            <a class='nav-link' href={{url_for('contact')}}>Contact</a>
+                            <a class='nav-link' href={{url_for('contact')}}>Contact / Support</a>
                         </li>
                         {% block nav_element %}
                         {% endblock nav_element %}
@@ -40,12 +40,16 @@
         {% endblock navbar %}
         {% block content%}
         {% endblock content%}
+
         <footer>
             <nav class="navbar footer navbar-fixed-bottom">
                 <p> &copy; 2020 Kevin Topel. Background photograph courtesy of April Heath. Check out her work <a href="https://www.instagram.com/april.deaunna.photography/?hl=en" target="#">here</a>.</p>
             </nav>
         </footer>
         {% block scripts %}
-        {% endblock scripts %}
+            {{ super() }}
+            <script src="{{ url_for('static',filename='main.js') }}" ></script>
+        {% endblock %}
+
         </body>
     </html>

@@ -52,19 +52,22 @@
     <div class='row'>
         <ul id='filter-list'>
             <li>
-                <h3 class = 'd-inline-block'>Available Resources</h3>
+                <h3>Available Resources</h3>
             </li>
             <li>
-                <div id="filter-results" class="input-group input-md col-md-6">
+                <div id="filter-results" class="input-group input-md col-md-6" data-target="#forum-container">
                 {{ wtf.form_field(cat_filter.post_type_filter) }}
                 </div>
+            </li>
+            <li>
+                <input type='submit' class="input-group input-md col-md-6" onclick='filter_results()'
             </li>
         </ul>
     </div>
     <div id="forum-container" class='row'>
         {% for post in data %}
             {% if post.active==1 %}
-                <article>
+                <article class= {{ post.post_type }} >
                     <h5>{{ post.post_title }}</h5>
                     <h6> category: <a href= # > {{ post.post_type }} </a> / link: <a href= {{ post.link }} target="#"> {{ post.link }} </a> </h6>
                     <p> {{ post.description }}</p>
@@ -77,10 +80,3 @@
 </div>
 
 {% endblock content %}
-{% block scripts %}
-
-{{ super() }}
-<script>
-    document.getElementById('post-submit-btn');
-</script>
-{% endblock scripts %}
