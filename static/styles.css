@@ -1,25 +1,8 @@
-#forum-container
-    {
-        border: 1px solid #D4D4D4;
-        border-radius: 5px;
-        padding: 10px;
-        min-height: 50px;
-    }
+/*global selectors*/
 
-#title-brand
+nav
     {
-        font-family: 'Ultra', serif;
-    }
-
-#filter-list
-    {
-        list-style-type: none;
-        display: inline;
-    }
-
-li
-    {
-        display: inline-block;
+        text-align: center;
     }
 
 body
@@ -27,6 +10,7 @@ body
         background-image: urL('IMG_0401.jpg');
         background-attachment: fixed;
         background-size: cover;
+        padding-top: 60px;
     }
 
 article
@@ -48,7 +32,64 @@ textarea
         height: 50px;
     }
 
+/*top nav elements*/
+
+#post-resource
+    {
+        width: 50vh;
+        padding: 5px;
+    }
+
+#title-brand
+    {
+        font-family: 'Ultra', serif;
+    }
+
+#top-menu-nav.li
+    {
+        display: inline-block;
+    }
+
 .submit_flash
     {
         padding: 10px;
     }
+
+/*search criteria filter elements*/
+
+/*#filter-container*/
+/*    {*/
+/*        top-margin: 75px;*/
+/*    }*/
+
+#filter-container.input, #filter-container.button
+    {
+        size: 5;
+    }
+/*main forum elements*/
+
+#forum-container
+    {
+        border: 1px solid #D4D4D4;
+        border-radius: 5px;
+        padding: 10px;
+        min-height: 50px;
+
+    }
+
+/*footer elements*/
+
+#footer-list
+    {
+        list-style-type: none;
+        background-color: rgb(64,64,64);
+        border: none;
+        color: white;
+        padding: 3px;
+    }
+
+#footer-list.li
+    {
+        display: inline-block;
+    }
+

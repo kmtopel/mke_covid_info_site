@@ -47,24 +47,36 @@
     </li>
 {% endblock nav_element %}
 {% block content %}
-
 <div class="container">
-    <div class='row'>
-        <ul id='filter-list'>
-            <li>
-                <h3>Available Resources</h3>
-            </li>
-            <li>
-                <div id="filter-results" class="input-group input-md col-md-6" data-target="#forum-container">
-                {{ wtf.form_field(cat_filter.post_type_filter) }}
+    <div id="filter-container" class="row">
+        <div class="row">
+            <form>
+                <div class='form-row'>
+                    <div class='col col-sm-2 sb-1'>
+                        <select class='selectpicker form-control'>
+                            {% for choice in choices %}
+                            <option>{{ choice }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class='col col-sm-2 sb-1'>
+                        <input type="submit" class="form-control" value="Apply Filter">
+                    </div>
+                    <div class='col col-sm-2 sb-1'>
+                        <select class='selectpicker form-control'>
+                            <option> Category</option>
+                            <option> Title</option>
+                            <option> Date </option>
+                        </select>
+                    </div>
+                    <div class='col col-sm-1 sb-1'>
+                        <button><img src= " {{ url_for('static',filename='sort-solid.svg') }} " /></button>
+                    </div>
                 </div>
-            </li>
-            <li>
-                <input type='submit' class="input-group input-md col-md-6" onclick='filter_results()'
-            </li>
-        </ul>
+            </form>
+        </div>
     </div>
-    <div id="forum-container" class='row'>
+    <div id="forum-container" class='row well well-lg pre-scrollable' style="max-height: 75vh">
         {% for post in data %}
             {% if post.active==1 %}
                 <article class= {{ post.post_type }} >
@@ -78,5 +90,5 @@
     </div>
 
 </div>
-
+{{ super() }}
 {% endblock content %}

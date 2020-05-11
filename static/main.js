@@ -5,20 +5,12 @@ var posts = document.getElementsByTagName('article');
 function filter_results()
     {
     var choices = document.getElementById("post_type_filter");
-    var selected_option = choices.options[choices.selectedIndex].value;
-    for (var i=0; i<posts.length; i++)
+    var selected_choice = choices.options[choices.selectedIndex].value;
+    var display = document.getElementsByClassName(selected_choice);
+
+    for (var i=0; i<display.length; i++)
         {
-        if (selected_option == "Show All")
-            {
-                posts[i].style.visibility = 'visible';
-            }
-        else if (posts[i].className != selected_option)
-            {
-                posts[i].style.visibility = 'hidden';
-            }
-        else
-            {
-                document.getElementsByClassName(selected_option).style.display == 'visible';
-            }
+            display[i].style.display = 'inherit';
         }
+
     }
