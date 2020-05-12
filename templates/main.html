@@ -1,4 +1,5 @@
 {% extends "layout.html" %}
+
 {% block nav_element %}
     <li role='presentation' class='dropdown nav-item'>
         <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"> Submit Resource<span class="caret"></span></a>
@@ -48,10 +49,10 @@
 {% endblock nav_element %}
 {% block content %}
 <div class="container">
-    <div id="filter-container" class="row">
+    <div id="filter-container">
         <div class="row">
             <form>
-                <div class='form-row'>
+                <div id='filter-row' class='form-row'>
                     <div class='col col-sm-2 sb-1'>
                         <select class='selectpicker form-control'>
                             {% for choice in choices %}
@@ -59,18 +60,18 @@
                             {% endfor %}
                         </select>
                     </div>
-                    <div class='col col-sm-2 sb-1'>
-                        <input type="submit" class="form-control" value="Apply Filter">
+                    <div class='col col-sm-1'>
+                        <button type="submit" class="btn btn-xs icon-btn"><img class='svg-img' height='25' width='25' src= " {{ url_for('static',filename='filter-solid.svg') }} " /></button>
                     </div>
-                    <div class='col col-sm-2 sb-1'>
+                    <div class='col col-sm-2'>
                         <select class='selectpicker form-control'>
                             <option> Category</option>
                             <option> Title</option>
                             <option> Date </option>
                         </select>
                     </div>
-                    <div class='col col-sm-1 sb-1'>
-                        <button><img src= " {{ url_for('static',filename='sort-solid.svg') }} " /></button>
+                    <div class='col col-sm-1'>
+                        <button type="submit" class="btn btn-xs icon-btn"><img class='svg-img' height='25' width='25' src= " {{ url_for('static',filename='sort.svg') }} " /></button>
                     </div>
                 </div>
             </form>

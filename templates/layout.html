@@ -18,17 +18,13 @@
         <body>
 
         {% block navbar %}
-            <div class='container-fluid'>
+            <div class='container-fluid' style="text-align: center;">
                 <nav class="navbar navbar-default navbar-fixed-top">
                     <ul class="nav nav-pills">
                         <li class='nav-item'>
                             <a id='title-brand' class='navbar-brand' href='/'>
                                 Milwaukees Area COVID-19 Resource & Information
                             </a>
-                        </li>
-
-                        <li class='nav-item'>
-                            <a class='nav-link' href={{url_for('contact')}}>Contact</a>
                         </li>
                         {% block nav_element %}
                         {% endblock nav_element %}
@@ -39,10 +35,11 @@
         {% endblock navbar %}
         {% block content%}
         {% block footer %}
-        <div id='footer-container' class='container'>
+        <div id='footer-container' class='container' style="text-align: center;">
             <nav id="footer-list" class="navbar navbar-default navbar-fixed-bottom">
                 <div class="row">
                     <ul class="nav nav-pills">
+                        <li class='nav-item'><a class='nav-link' href={{url_for('contact')}}>Contact</a></li>
                         <li class='nav-item'><a href="https://www.buymeacoffee.com/kmtopel" target='#'>Support</a></li>
                         <li class='nav-item'><a href="https://github.com/kmtopel/mke_covid_info_site" target='#'>GitHub</a></li>
                     </ul>
