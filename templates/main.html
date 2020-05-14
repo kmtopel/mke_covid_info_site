@@ -1,95 +1,126 @@
 {% extends "layout.html" %}
-
-{% block nav_element %}
-    <li role='presentation' class='dropdown nav-item'>
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"> Submit Resource<span class="caret"></span></a>
-        <div class="dropdown-menu" id="navbarCollapse" >
-            <form class='nav-item' id="post-resource" action="/" method="POST">
+{% block content %}
+<div class="container-fluid">
+    <div class="jumbotron collapse row" id="welcome-msg">
+        <div id='jumbotron-styling'>
+            <h1 class="display-4">Welcome to the MKE-COVID Resource Site!</h1>
+            <p class="lead">This website is intended to function as a community forum wherein one can search for and post Milwaukee-area resources related to COVID-19 relief.</p>
+            <hr class="my-4">
+               <p>This site does not pretend to be an exhaustive list, and the accuracy of the posts can only be guaranteed insofar as the site administrator has time to verify links.</p>
+                <p>Please feel free to submit as many resources as you desire using the dropdown form in the link above, and do not hesitate to message the administrator via the contact form below to suggest any updates, revisions, or problems with the site.</p>
+                <p>Lastly, this site was developed as a personal project with no funding, so if you wish to contribute you can do so through the support link at the bottom of the page.</p>
+                <p>Thank you!</p>
+            </p>
+        </div>
+    </div>
+    <div class='row'>
+        <div id='form-container' class='col-sm-2 p-2 sidebar'>
+            <form class='collapse' aria-expanded='false' id="post-resource" action="/" method="POST">
                 {{ form.csrf_token }}
 
-                <div class="form-group nav-item">
-                    {{ wtf.form_field(form.post_title) }}
+                <div class="form-group col-lg-2">
+                    {{ form.post_title.label }}
+                    {{ form.post_title }}
                 </div>
 
-                <div class="form-group nav-item">
-                    {{ wtf.form_field(form.email) }}
+                <div class="form-group col-lg-2">
+                    {{ form.email.label }}
+                    {{ form.email }}
                 </div>
 
-                <div class="form-group nav-item">
-                    {{ wtf.form_field(form.post_type_submit) }}
+                <div class="form-group col-lg-2">
+                    {{ form.post_type_submit.label }}
+                    {{ form.post_type_submit }}
                 </div>
 
-                <div class="form-group nav-item">
-                    {{ wtf.form_field(form.link) }}
+                <div class="form-group col-lg-2">
+                    {{ form.link.label }}
+                    {{ form.link }}
                 </div>
 
-                <div class="form-group nav-item">
-                    {{ wtf.form_field(form.description) }}
+                <div class="form-group col-lg-2">
+                    {{ form.description.label }}
+                    {{ form.description }}
                 </div>
 
-                <div class="form-group nav-item">
+                <div class="form-group col-lg-2">
                     <input id='post-submit-btn' type="submit" class="btn btn-default btn-dark mb-2" />
                 </div>
-                <div id='flash-msg-container'>
+
+                <div id='flash-msg-container' class='form-group alert'>
                     {% with messages = get_flashed_messages() %}
-                    {% if messages %}
-                    {% for message in messages %}
-                    <div class='alert alert-success' id='submit_flash'>
-                        <button type='button' class='close' data-dismiss='alert'>&times;</button>
-                        {{ message }}
-                    </div>
-                    {% endfor %}
-                    {% else %}
-                    {% endif %}
+                        {% if messages %}
+                            {% for message in messages %}
+                            <div class="alert alert-success alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <strong>Success!</strong> Your resource has been submitted and will be posted upon review.
+                            </div>
+                            {% endfor %}
+                        {% else %}
+                        {% endif %}
                     {% endwith %}
                 </div>
             </form>
         </div>
-    </li>
-{% endblock nav_element %}
-{% block content %}
-<div class="container">
-    <div id="filter-container">
-        <div class="row">
-            <form>
-                <div id='filter-row' class='form-row'>
-                    <div class='col col-sm-2 sb-1'>
-                        <select class='selectpicker form-control'>
-                            {% for choice in choices %}
-                            <option>{{ choice }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                    <div class='col col-sm-1'>
-                        <button type="submit" class="btn btn-xs icon-btn"><img class='svg-img' height='25' width='25' src= " {{ url_for('static',filename='filter-solid.svg') }} " /></button>
-                    </div>
-                    <div class='col col-sm-2'>
-                        <select class='selectpicker form-control'>
-                            <option> Category</option>
-                            <option> Title</option>
-                            <option> Date </option>
-                        </select>
-                    </div>
-                    <div class='col col-sm-1'>
-                        <button type="submit" class="btn btn-xs icon-btn"><img class='svg-img' height='25' width='25' src= " {{ url_for('static',filename='sort.svg') }} " /></button>
+        <div class='col-sm-12'>
+            <div id="filter-container" class="top m-1 xs-auto justify-content-center">
+                <div class="row">
+                    <form>
+                        <div id='filter-row' class='form-row'>
+                            <div class='col'>
+                                <select class='selectpicker form-control btn-sm btn-block'>
+                                    {% for choice in choices %}
+                                    <option>{{ choice }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class='col'>
+                                <button type="submit" class="btn btn-sm icon-btn btn-block"><img class='svg-img' height='25' width='25' src= " {{ url_for('static',filename='filter-solid.svg') }} " /></button>
+                            </div>
+                            <div class='col'>
+                                <select class='selectpicker form-control btn-sm btn-block'>
+                                    <option> Category</option>
+                                    <option> Title</option>
+                                    <option> Date </option>
+                                </select>
+                            </div>
+                            <div class='col'>
+                                <button type="submit" class="btn btn-sm icon-btn btn-block"><img class='svg-img' height='25' width='25' src= " {{ url_for('static',filename='sort.svg') }} " /></button>
+                            </div>
+                            <div class='col'>
+                                <button type="submit" class="btn btn-sm icon-btn btn-block"><img class='svg-img' height='25' width='25' src= " {{ url_for('static',filename='bars-solid.svg') }} " /></button>
+                            </div>
+                            <div class='col'>
+                                <button type="submit" class="btn btn-sm icon-btn btn-block"><img class='svg-img' height='25' width='25' src= " {{ url_for('static',filename='th-solid.svg') }} " /></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div id="forum-container" class='container'>
+                <div class="album p-5">
+                    <div class='row'>
+                        {% for post in data %}
+                            {% if post.active==1 %}
+                                <div class='col-p-1'>
+                                    <div class="card border-light m-1 post-card d-block">
+                                        <div class="card-header text-white bg-secondary">{{ post.post_type }}</div>
+                                        <div class="card-body">
+                                            <h5 class="card-title"><a> {{ post.post_title.title() }}</a></h5>
+                                            <p class="card-text">{{ post.description.capitalize() }}</p>
+                                            <a href={{ post.link }} class="card-link">Visit Link</a>
+                                            <div class="text-muted"> Posted on {{ post.timestamp.strftime('%-m/%-d/%Y') }}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
                     </div>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
-    <div id="forum-container" class='row well well-lg pre-scrollable' style="max-height: 75vh">
-        {% for post in data %}
-            {% if post.active==1 %}
-                <article class= {{ post.post_type }} >
-                    <h5>{{ post.post_title }}</h5>
-                    <h6> category: <a href= # > {{ post.post_type }} </a> / link: <a href= {{ post.link }} target="#"> {{ post.link }} </a> </h6>
-                    <p> {{ post.description }}</p>
-                    <h6></a> posted on: {{ post.timestamp.strftime('%m/%d/%Y') }} </h6>
-                </article>
-            {% endif %}
-        {% endfor %}
-    </div>
-
 </div>
 {{ super() }}
 {% endblock content %}

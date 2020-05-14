@@ -1,62 +1,72 @@
-{% extends "bootstrap/base.html" %}
-{% import "bootstrap/wtf.html" as wtf %}
-{% import 'bootstrap/utils.html' as utils %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<!DOCTYPE html>
-    <html lang="en">
-        <head>
-            <meta name="viewport" content="width=device-width, initial-scale=1">
-
-            <title>Milwaukee COVID-19 Resources and Information</title>
-            {% block styles %}
-            {{super()}}
-            <link type="text/css" rel="stylesheet" href="static/styles.css">
-            <link href="https://fonts.googleapis.com/css2?family=Alata&family=Work+Sans:wght@300&display=swap" rel="stylesheet">
-            <link href="https://fonts.googleapis.com/css2?family=Ultra&display=swap" rel="stylesheet">
-            {% endblock styles %}
-        </head>
-        <body>
-
-        {% block navbar %}
-            <div class='container-fluid' style="text-align: center;">
-                <nav class="navbar navbar-default navbar-fixed-top">
-                    <ul class="nav nav-pills">
-                        <li class='nav-item'>
-                            <a id='title-brand' class='navbar-brand' href='/'>
-                                Milwaukees Area COVID-19 Resource & Information
-                            </a>
-                        </li>
-                        {% block nav_element %}
-                        {% endblock nav_element %}
-                    </ul>
-                </nav>
-            </div>
-        </div>
-        {% endblock navbar %}
-        {% block content%}
-        {% block footer %}
-        <div id='footer-container' class='container' style="text-align: center;">
-            <nav id="footer-list" class="navbar navbar-default navbar-fixed-bottom">
-                <div class="row">
-                    <ul class="nav nav-pills">
-                        <li class='nav-item'><a class='nav-link' href={{url_for('contact')}}>Contact</a></li>
-                        <li class='nav-item'><a href="https://www.buymeacoffee.com/kmtopel" target='#'>Support</a></li>
-                        <li class='nav-item'><a href="https://github.com/kmtopel/mke_covid_info_site" target='#'>GitHub</a></li>
-                    </ul>
-                </div>
-                <div class="row">
-                    <p>Background photograph courtesy of April Heath. <a href="https://www.instagram.com/april.deaunna.photography/?hl=en" target="#">Check out her work </a>.</p>
-                    <p style="font-size: 80%"> &copy; 2020 Kevin Topel.</p>
-                </div>
+    <!-- Bootstrap CSS -->
+    {% block style %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    {% endblock style %}
+    {% block title %}
+    <title>Milwaukee Area COVID-19 Resources & Information</title>
+    {% endblock title %}
+  </head>
+    <body>
+    {% block nav %}
+        <div id='top-nav-container' class='container'>
+            <nav class="navbar fixed-top navbar-dark bg-dark navbar-expand-sm pager mw-100">
+                <ul class="nav nav-pills">
+                    <li class='nav-item btn btn-outline col-xs'>
+                        <a id='title-brand' class='nav-link text-white' role='presentation' href='/'>
+                            Milwaukee Area COVID-19 Resources & Information
+                        </a>
+                    </li>
+                    <li role='presentation' class='nav-item btn btn-outline col-xs'>
+                        <a class='nav-link text-white' type="button" data-toggle="collapse" aria-expanded='true' data-target="#welcome-msg">
+                            About
+                        </a>
+                    </li>
+                    <li role='presentation' class='nav-item btn btn-outline col-xs'>
+                        <a class='nav-link text-white' type="button" data-toggle="collapse" aria-expanded='true' data-target="#post-resource">
+                            Submit Resource
+                        </a>
+                    </li>
+                </ul>
             </nav>
         </div>
-        {% endblock footer %}
-        {% endblock content%}
+    {%endblock nav %}
 
-        {% block scripts %}
-            {{ super() }}
-            <script src="{{ url_for('static',filename='main.js') }}" ></script>
-        {% endblock %}
+    {% block content %}
 
-        </body>
-    </html>
+    {% endblock content %}
+
+    {% block footer %}
+    <div class='container-fluid navbar-light bg-light fixed-bottom' id='footer-container'>
+        <nav id="footer-nav" class=" navbar navbar-expand-lg justify-content-center row">
+            <ul class="nav nav-pills">
+                <li class='btn text-light btn-xs nav-item'><a class='nav-link text-dark' href={{url_for('contact')}}><img class='svg-img-invert' height='25' width='25' src= " {{ url_for('static',filename='envelope-regular.svg') }} " /> Contact</a></li>
+                <li class='btn text-light btn-xs nav-item'><a class='nav-link text-dark' href="https://www.buymeacoffee.com/kmtopel" target='#'><img class='svg-img-invert' height='25' width='25' src= " {{ url_for('static',filename='dollar-sign-solid.svg') }} " /> Support</a></li>
+                <li class='btn text-light btn-xs nav-item'><a class='nav-link text-dark' href="https://github.com/kmtopel/mke_covid_info_site" target='#'><img class='svg-img-invert' height='25' width='25' src= " {{ url_for('static',filename='github-brands.svg') }} " /> GitHub</a></li>
+            </ul>
+        </nav>
+        <div class='footer-text'>
+            <p>Photograph courtesy of April Heath. <a href="https://www.instagram.com/april.deaunna.photography/?hl=en" target="#">Check out her work </a>.</p>
+            <p id='copyright-info'> &copy; 2020 Kevin Topel.</p>
+        </div>
+    </div>
+
+    {% endblock footer %}
+
+    {% block scripts %}
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    {% endblock scripts %}
+
+  </body>
+</html>

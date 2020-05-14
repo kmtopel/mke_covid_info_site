@@ -1,6 +1,5 @@
 #!/home/kmtopel/mysite/env/bin python3
 from flask import Flask, render_template, redirect, flash, url_for, request
-from flask_bootstrap import Bootstrap
 from flask_nav import Nav
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf.csrf import CSRFProtect
@@ -15,7 +14,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'da
 app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
 
 csrf = CSRFProtect(app)
-bootstrap = Bootstrap(app)
 nav = Nav(app)
 db = SQLAlchemy(app)
 

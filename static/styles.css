@@ -1,94 +1,49 @@
-/*global selectors*/
-
 body
-    {
-        background-image: urL('IMG_0401.jpg');
-        background-attachment: fixed;
-        background-size: cover;
-        padding-top: 60px;
-    }
+{
+    padding-top: 60px;
+}
 
-article
-    {
-        border-left: 15px black;
-        border-radius: 5px;
-        margin-left: 5px;
-        padding-left: 15px;
-        padding-top: 1px;
-        padding-bottom: 1px;
-        padding-right: 5px;
-        margin-top: 5px;
-        background-color: #f6f6f6;
-    }
+label
+{
+    width: 100rem;
+}
 
-textarea
-    {
-        resize: none;
-        height: 50px;
-    }
+.post-card
+{
+    width: 15rem;
+    height: 15rem;
+    margin: 5px;
+    font-size: 85%;
+}
 
-/*top nav elements*/
+#jumbotron-styling
+{
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 5px;
+    border-radius: 20px;
+    text-align: center;
+}
 
-#post-resource
-    {
-        width: 50vh;
-        padding: 5px;
-    }
+#form-container
+{
 
-#title-brand
-    {
-        /*font-family: 'Ultra', serif;*/
-        font-weight: bold;
-    }
+}
 
-#top-menu-nav
-    {
-        text-align: center;
-    }
+#welcome-msg
+{
+    background: url('/static/IMG_0401.jpg');
+    background-size: cover;
+}
 
-#top-menu-nav.li
-    {
-        display: inline-block;
-    }
+#content
+{
+    padding:10px;
+}
 
-.submit_flash
-    {
-        padding: 10px;
-    }
-
-/*search criteria filter elements*/
-
-
-/*main forum elements*/
-
-#forum-container
-    {
-        border: 1px solid #D4D4D4;
-        border-radius: 5px;
-        padding: 10px;
-        min-height: 50px;
-    }
-
-/*footer elements*/
-
-#footer-list
-    {
-        height: 70px;
-        list-style-type: none;
-        background-color: rgb(64,64,64);
-        border: none;
-        color: white;
-        padding: 3px;
-        text-align: center;
-    }
-
-#footer-list.li
-    {
-        display: inline-block;
-    }
-
-#footer-list.nav
-    {
-        margin-left: 50vh;
-    }
-
+.footer-text
+{
+    text-align: center;
+    font-size: 80%;
+    padding: 1px;
+}

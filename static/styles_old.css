@@ -1,0 +1,97 @@
+/*global selectors*/
+
+body
+    {
+        background-image: urL('IMG_0401.jpg');
+        background-attachment: fixed;
+        background-size: cover;
+    }
+
+textarea
+    {
+        resize: none;
+        height: 50px;
+    }
+
+top nav elements
+
+#post-resource
+    {
+        width: 50vh;
+        padding: 15px;
+        border-radius: 15px;
+    }
+
+#title-brand
+    {
+        font-family: 'Ultra', serif;
+        font-weight: bold;
+    }
+
+#top-nav-container
+    {
+        background-color: #f1f1f1;
+        margin-bottom: 5px;
+        color: black;
+    }
+
+.submit_flash
+    {
+        padding: 10px;
+    }
+
+/*search criteria filter elements*/
+
+#filter-container
+    {
+        margin: 5px;
+    }
+
+/*main forum elements*/
+
+#forum-container
+    {
+        border: 1px solid #D4D4D4;
+        border-radius: 5px;
+        padding: 10px;
+        min-height: 30vh;
+    }
+
+.panel
+    {
+        height: 215px;
+        padding: 5px;
+    }
+
+/*footer elements*/
+
+#footer-list
+    {
+        list-style-type: none;
+        background-color: rgb(64,64,64);
+        border: none;
+        color: white;
+        padding: 3px;
+        text-align: center;
+    }
+
+.svg-img-invert
+    {
+        filter: invert(100%);
+    }
+
+#footer-list.a
+    {
+        color: white !important;
+    }
+
+#footer-list.li
+    {
+        display: inline-block;
+    }
+
+#footer-list.nav
+    {
+        margin-left: 50vh;
+    }
+
