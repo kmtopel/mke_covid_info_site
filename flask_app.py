@@ -5,6 +5,8 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_wtf.csrf import CSRFProtect
 from forms import SubmitForm, ContactAdmin
 from datetime import datetime as dt
+from cred import pw, username
+
 import os
 
 app = Flask(__name__)
@@ -27,16 +29,18 @@ class Posts(db.Model):
     post_type = db.Column(db.String(80),nullable=False)
     description = db.Column(db.Text)
     active = db.Column(db.Boolean, default=0)
+    ph_num = db.Column(db.String(80),nullable=True)
     sql_autoincrement=True
 
 key = os.urandom(24)
 app.config['SECRET_KEY'] = key
 
-choices = ['Show All','Information','Financial','Food','Health Care','Employment/Vocational','Social Service','Education','Other']
+choices = ['Show All','Information','Financial','Food','Health Care','Employment/Vocational','Fitness/Recreation','Mental Health/Substance Abuse','Social Service','Education','Transportation','Personal Care','Child Care','Disability Services','Other']
 
 @app.route('/', methods=["GET","POST"])
 def main():
     form = SubmitForm(request.form)
+    contact = ContactAdmin(request.form)
     if form.validate_on_submit():
         flash("Success! Thank you for submitting a resource. Your post is being reviewed.")
         post = Posts(
@@ -45,15 +49,11 @@ def main():
             description=form.description.data,
             post_type=form.post_type_submit.data,
             link = form.link.data,
+            ph_num = form.ph_num.data,
             timestamp=dt.utcnow()
                 )
         db.session.add_all([post])
         db.session.commit()
         return redirect(url_for('main'))
     data=Posts.query.all()
-    return render_template('main.html',form=form, data=data, choices=choices)
-
-@app.route('/contact', methods=["GET","POST"])
-def contact():
-    form = ContactAdmin()
-    return render_template('contact.html',form=form)
+    return render_template('main.html',form=form, data=data, choices=choices, contact=contact)
