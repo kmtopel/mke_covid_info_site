@@ -1,66 +1,29 @@
 html
 {
-  scroll-behavior: smooth;
+  height: 100%;
 }
 
 body
 {
+    background: url('/static/IMG_0401.jpg');
+    /*background-repeat: no-repeat;*/
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    height: 100%;
+    width: 100%;
     padding-top: 70px;
 }
 
-label
+#contact-textarea
 {
-    width: 100rem;
+    height: 150px;
 }
 
-.post-card
+#contact-content
 {
-    width: 15rem;
-    height: 15rem;
-    margin: 5px;
-    font-size: 85%;
-    overflow: auto;
-}
-
-.text-white-muted
-{
-    font-size: 90%;
-    color: white;
-    opacity: 0.8;
-}
-
-#background-img-container
-{
-    background: url('/static/IMG_0401.jpg');
-    background-size: cover;
-}
-
-#content
-{
-    padding:10px;
-}
-
-#filter-form-el
-{
-    padding-left: 10px;
-    padding-right: 10px;
-}
-
-#side-btn
-{
-    left:0;
-    position: fixed;
-    margin-top: 1rem;
-}
-
-.col-text-sm
-{
-    font-size: 85%;
-}
-
-tr:hover
-{
-    background-color: #d1d1d1;
+    margin-bottom: 160px;
 }
 
 .footer-text
@@ -70,7 +33,40 @@ tr:hover
     padding: 1px;
 }
 
-.icon-white
+.svg-img
 {
-    -webkit-filter: invert(100%);
+    filter: invert(100%);
+}
+
+#mainTable_wrapper
+{
+    font-size: 90%;
+    color: black;
+    opacity: 0.9;
+    overflow: scroll;
+    padding: 10px;
+    background-size: auto;
+}
+
+#contact-form
+{
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    /*opacity: 0.65;*/
+    border-radius: 25px;
+    background-color: black;
+}
+
+#content
+{
+    overflow: auto;
+    padding-bottom: 150px;
+}
+
+#footer-container
+{
+    max-height: 10rem;
+    margin-top: 65px;
+    bottom: 0;
 }

@@ -8,7 +8,9 @@
     <!-- Bootstrap CSS -->
     {% block style %}
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="extensions/filter-control/bootstrap-table-filter-control.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
+    <!--<link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">-->
+    <!--<link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">-->
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     {% endblock style %}
     {% block title %}
@@ -19,7 +21,7 @@
     {% block nav %}
 <div class='fixed-top'>
     <nav id='primary-nav' class="navbarnavbar-expand-lg navbar-dark bg-dark">
-        <ul class="nav nav-pills inline justify-content-center">
+        <ul class="nav nav-pills inline">
             <li role='presentation' class='nav-item btn'>
                 <a id='title-brand' class='nav-link text-white' href='/'>
                     MKE COVID-19 Resources & Information
@@ -27,7 +29,7 @@
             </li>
 
             <li role='presentation' class='nav-item btn'>
-                <a href='#' class='nav-link text-white' type="button" data-toggle="modal" data-target="#modal-about">
+                <a class='nav-link text-white' type="button" data-toggle="modal" data-target="#modal-about">
                     About
                 </a>
             </li>
@@ -41,20 +43,187 @@
     </nav>
     {% endblock nav %}
 </div>
-    {% block content %}
 
+<div class='container' id='modal-content'>
+    <div class='modal fade' tabindex='-1' role='dialog' data-dismiss='modal' aria-hidden='true' aria-labelledby='about_modal_window' id='modal-about'>
+        <div class='modal-dialog modal-lg' role='document'>
+            <div class='modal-content'>
+                <div class='modal-header text-white bg-dark'>
+                    <h1 class="display-4" >Welcome to the MKE-COVID Resource Site!</h1>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class='icon-white'>&times;</span></button>
+                </div>
+                <div id='background-img-container' class='modal-body px-4'>
+                    <p class="lead">This website is intended to function as a community forum wherein one can search for and post Milwaukee-area resources related to COVID-19 relief.</p>
+                    <hr class="my-4">
+                    <p>This site does not pretend to be an exhaustive list, and the accuracy of the posts can only be guaranteed insofar as the site administrator has time to verify links.</p>
+                    <p>Please feel free to submit as many resources as you desire using the dropdown form in the link above. Do not hesitate to message the administrator via the contact link below to suggest any updates, revisions, or problems with the site.</p>
+                    <p>Lastly, if you wish to contribute directly to the Developer of this site, you can do so through the support link at the bottom of the page.</p>
+                    <p>Thank you!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class='modal fade modal-dialog-md' tabindex='-1' role='dialog' data-dismiss='modal' aria-hidden='true' aria-labelledby='form_modal_window' id='modal-form'>
+        <div class='modal-dialog modal-md' role='document'>
+            <div class='modal-content'>
+                <div class='modal-header text-white bg-dark'>
+                    <h3 class='m-1'>Submit Resource</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class='icon-white'>&times;</span></button>
+                </div>
+                <div id='form-container'>
+                    <form id="post-resource" action="/" method="POST" class="form-inline-sm p-1 m-1 mx-auto">
+
+                        <div class="form-group row">
+                            <label class='col-sm-1 col-form-label'>
+                                <img height='20' width='20' src=" {{ url_for('static',filename='tag-solid.svg') }} " />
+                            </label>
+                            <div class="col-sm-11">
+                                {{ form.post_title(class_='form-control') }}
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class='col-sm-1 col-form-label'>
+                                <img height='20' width='20' src=" {{ url_for('static',filename='envelope-regular.svg') }} " />
+                            </label>
+                            <div class="col-sm-11">
+                                {{ form.email(class_='form-control') }}
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class='col-sm-1 col-form-label'>
+                                <img height='20' width='20' src=" {{ url_for('static',filename='bars-solid.svg') }} " />
+                            </label>
+                            <div class="col-sm-11">
+                                {{ form.post_type_submit(class_='form-control custom-select mr-sm-2') }}
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class='col-sm-1 col-form-label'>
+                                <img height='20' width='20' src= " {{ url_for('static',filename='link-solid.svg') }} " />
+                            </label>
+                            <div class="col-sm-11">
+                                {{ form.link(class_='form-control')  }}
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class='col-sm-1 col-form-label'>
+                                <img height='20' width='20' src=" {{ url_for('static',filename='phone-solid.svg') }} " />
+                            </label>
+                            <div class="col-sm-11">
+                                {{ form.ph_num(class_='form-control') }}
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class='col-sm-1 col-form-label'>
+                                <img height='20' width='20' src=" {{ url_for('static',filename='comment-solid.svg') }} " />
+                            </label>
+                            <div class="col-sm-11">
+                                {{ form.description(class_='form-control') }}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class='text-center'>
+                                <input id='post-submit-btn' type="submit" class="btn btn-default rounded btn-dark mb-2" />
+                            </div>
+                        </div>
+
+                        {{ form.csrf_token }}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% for post in data %}
+    {% if post.active==1 %}
+        <div class="modal modal-md fade" id="{{ post.id }}" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-dark text-white">
+                        <h5 class="modal-title">{{ post.post_title }}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class='row'>
+                            <p class='col'><span class='text-muted'>Category:</span> {{ post.post_type }}</p>
+                            <p class='col'><span class='text-muted'>Posted on:</span> {{ post.timestamp.strftime('%-m/%-d/%Y') }}</p>
+                        </div>
+
+                        {% if post.ph_num %}
+                            <p> <span class='text-muted'>Contact:</span>
+                            {{ post.ph_num }}
+                            </p
+                        {% endif %}
+                        <p> <span class='text-muted'>Description:</span></p>
+                        <p> {{ post.description }}</p>
+                        {% if post.link %}
+
+                        <div class='form'>
+                            <div class='form-group'>
+                                <input class='input-lg col-sm-8' id='resource_{{post.id}}' value={{ post.link }} style="font-size: 60%;" readonly />
+                                <button onclick="copyText(resource_{{post.id}} )" type="submit" class="btn btn-sm btn-secondary text-white">
+                                    Copy Link
+                                    <img class='svg-img' height='10' width='10' src= " {{ url_for('static',filename='link-solid.svg') }} " />
+                                </button>
+                                <a href={{ post.link }} class="btn btn-sm btn-secondary text-white" target='#'>
+                                    Visit Link <span height='10' width='10'>&#x279a;</span>
+                                </a>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endfor %}
+
+</div>
+
+    {% block content %}
+    <div class='row'>
+        <div class='col-12'>
+            <div id='flash-msg-container' class='form-group alert'>
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-success alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                    {% endif %}
+                {% endwith %}
+            </div>
+        </div>
+    </div>
     {% endblock content %}
 
     {% block footer %}
-    <div class='container-fluid navbar-light bg-light static-bottom' id='footer-container'>
+
+    <div class='container-fluid no-padding navbar-light bg-light bottom' id='footer-container'>
         <nav id="footer-nav" class=" navbar navbar-expand-lg justify-content-center row">
             <ul class="nav nav-pills">
-                <li class='btn text-light btn-xs nav-item'><a class='nav-link text-dark' href='#'><img class='svg-img-invert' height='25' width='25' src= " {{ url_for('static',filename='envelope-regular.svg') }} " /> Contact</a></li>
+                <li class='btn text-light btn-xs nav-item'><a class='nav-link text-dark' href='/contact'><img class='svg-img-invert' height='25' width='25' src= " {{ url_for('static',filename='envelope-regular.svg') }} " /> Contact</a></li>
                 <li class='btn text-light btn-xs nav-item'><a class='nav-link text-dark' href="https://www.buymeacoffee.com/kmtopel" target='#'><img class='svg-img-invert' height='25' width='25' src= " {{ url_for('static',filename='dollar-sign-solid.svg') }} " /> Support</a></li>
                 <li class='btn text-light btn-xs nav-item'><a class='nav-link text-dark' href="https://github.com/kmtopel/mke_covid_info_site" target='#'><img class='svg-img-invert' height='25' width='25' src= " {{ url_for('static',filename='github-brands.svg') }} " /> GitHub</a></li>
             </ul>
         </nav>
         <div class='footer-text'>
+            <p class='text-muted'>Photograph courtesy of April Heath <a href="https://www.instagram.com/april.deaunna.photography/?hl=en" target="#">Check out her work </a>.</p>
             <p id='copyright-info'> &copy; 2020 Kevin Topel.</p>
         </div>
     </div>
@@ -65,10 +234,11 @@
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <!--<script src="https://code.jquery.com/jquery-3.5.1.js"></script>-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <script src="extensions/filter-control/bootstrap-table-filter-control.js"></script>
-    <script src="extensions/accent-neutralise/bootstrap-table-accent-neutralise.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
     {% endblock scripts %}
 
   </body>
